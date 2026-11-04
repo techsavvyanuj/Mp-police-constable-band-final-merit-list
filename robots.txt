@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /.git/
 
-Sitemap: https://mppoliceband.in/sitemap.xml
+Sitemap: https://www.mppoliceconstablebandfinalmeritlist.online/sitemap.xml
