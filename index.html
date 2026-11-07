@@ -471,9 +471,256 @@
     }
     .site-footer .footer-links a:hover { color: var(--white); }
     .footer-divider { color: #9B4444; }
+
+    /* ── MAINTENANCE / SITE DOWN STYLES ── */
+    #maintenance-site-content {
+      display: none;
+    }
+
+    body.site-down #live-site-content {
+      display: none !important;
+    }
+
+    body.site-down #maintenance-site-content {
+      display: block !important;
+    }
+
+    .maintenance-wrap {
+      max-width: 860px;
+      margin: 32px auto 48px;
+      padding: 0 16px;
+    }
+
+    .maintenance-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    }
+
+    .maintenance-head {
+      background: var(--maroon);
+      color: var(--white);
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      border-bottom: 3px solid var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .maintenance-body {
+      padding: 32px 24px 28px;
+      text-align: center;
+    }
+
+    .m-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeeba;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 22px;
+    }
+
+    .m-pulse-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #d9534f;
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse-dot 1.5s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0% { transform: scale(0.9); opacity: 0.8; }
+      50% { transform: scale(1.35); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.8; }
+    }
+
+    .m-icon-box {
+      margin: 5px auto 18px;
+      width: 78px;
+      height: 78px;
+      background: #fdf4f4;
+      border: 2px solid #e8b8b8;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      line-height: 1;
+    }
+
+    .m-title-en {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--maroon);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .m-title-hi {
+      font-size: 17px;
+      font-weight: bold;
+      color: #333333;
+      margin-bottom: 18px;
+    }
+
+    .m-notice-box {
+      background: #faf7f2;
+      border: 1px solid #e2d9cd;
+      border-left: 5px solid var(--maroon);
+      padding: 16px 20px;
+      text-align: left;
+      margin: 22px 0;
+      border-radius: 3px;
+    }
+
+    .m-notice-box p {
+      font-size: 13.5px;
+      color: #333;
+      line-height: 1.75;
+      margin-bottom: 10px;
+    }
+
+    .m-notice-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .m-details-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0 20px;
+      text-align: left;
+      font-size: 13.5px;
+    }
+
+    .m-details-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid #e8e0d6;
+    }
+
+    .m-details-table td:first-child {
+      font-weight: bold;
+      color: var(--muted);
+      width: 36%;
+      background: #faf7f2;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 600px) {
+      .m-details-table td:first-child {
+        width: 45%;
+        white-space: normal;
+      }
+      .m-title-en {
+        font-size: 20px;
+      }
+      .m-title-hi {
+        font-size: 15px;
+      }
+      .maintenance-body {
+        padding: 24px 16px;
+      }
+    }
+
+    .m-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .btn-action-refresh {
+      background: var(--maroon);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 11px 24px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-action-refresh:hover {
+      background: #500e0e;
+      color: #ffffff;
+    }
+
+    .btn-action-official {
+      background: var(--white);
+      color: var(--maroon);
+      font-size: 14px;
+      font-weight: bold;
+      padding: 11px 22px;
+      text-decoration: none;
+      border: 1.5px solid var(--maroon);
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-action-official:hover {
+      background: #faf2f2;
+      color: var(--maroon);
+    }
   </style>
 </head>
-<body>
+<!-- ==============================================================
+     ⚙️ WEBSITE STATUS CONTROLLER (वेबसाइट चालू / बंद करने का स्विच)
+     --------------------------------------------------------------
+     • TO TURN WEBSITE ON (सामान्य रूप से चालू करने के लिए):
+         Change: const IS_WEBSITE_DOWN = true;
+         To:     const IS_WEBSITE_DOWN = false;
+         (Or remove "site-down" from <body class="site-down">)
+
+     • TO TURN WEBSITE DOWN (अस्थायी रूप से बंद करने के लिए):
+         Change: const IS_WEBSITE_DOWN = false;
+         To:     const IS_WEBSITE_DOWN = true;
+         (And set <body class="site-down">)
+
+     • ADMIN SECRET PREVIEW (एडमिन द्वारा लाइव वेबसाइट देखने के लिए):
+         Add ?preview=1 to the URL (e.g. index.html?preview=1)
+     ============================================================== -->
+<body class="site-down">
+
+  <script>
+    /* ==========================================================
+       WEBSITE TOGGLE SWITCH: Change to false to bring site back ON
+       ========================================================== */
+    const IS_WEBSITE_DOWN = true;
+
+    (function () {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var isPreview = params.get('preview') === '1' || params.get('live') === '1' || params.get('admin') === '1';
+        if (!IS_WEBSITE_DOWN || isPreview) {
+          document.body.classList.remove('site-down');
+        } else {
+          document.body.classList.add('site-down');
+        }
+      } catch (err) {
+        if (!IS_WEBSITE_DOWN) {
+          document.body.className = (document.body.className || '').replace(/\bsite-down\b/g, '').trim();
+        }
+      }
+    })();
+  </script>
 
   <!-- INDIA FLAG STRIPE -->
   <div class="flag-stripe" aria-hidden="true">
@@ -501,6 +748,8 @@
     </div>
   </header>
 
+  <!-- LIVE SITE CONTENT (Active when IS_WEBSITE_DOWN is false) -->
+  <div id="live-site-content">
 
   <!-- BREADCRUMB -->
   <div class="breadcrumb">
@@ -690,6 +939,100 @@
       </aside>
     </div><!-- /content-grid -->
   </div><!-- /page-wrap -->
+  </div><!-- /#live-site-content -->
+
+  <!-- ==============================================================
+       MAINTENANCE / TEMPORARILY DOWN SCREEN
+       (Active when IS_WEBSITE_DOWN is true)
+       ============================================================== -->
+  <div id="maintenance-site-content">
+    <div class="breadcrumb">
+      <div class="breadcrumb-inner">
+        <a href="#">Home</a>
+        <span>&rsaquo;</span>
+        <a href="#">Notice</a>
+        <span>&rsaquo;</span>
+        Portal Temporarily Down (अस्थायी रखरखाव)
+      </div>
+    </div>
+
+    <div class="maintenance-wrap">
+      <div class="maintenance-card">
+        <div class="maintenance-head">
+          <span>&#9888;</span>
+          <span>OFFICIAL NOTICE &mdash; PORTAL TEMPORARILY UNAVAILABLE / आवश्यक सूचना</span>
+        </div>
+
+        <div class="maintenance-body">
+          <div class="m-status-pill">
+            <span class="m-pulse-dot"></span>
+            <span>CURRENT STATUS: TEMPORARILY DOWN  / अस्थायी रूप से बंद</span>
+          </div>
+
+          <div class="m-icon-box" aria-hidden="true">
+            &#9881;&#65039;
+          </div>
+
+          <h2 class="m-title-en">Website Temporarily Down </h2>
+          <div class="m-title-hi">पोर्टल आज तकनीकी रखरखाव के कारण अस्थायी रूप से बंद है</div>
+
+          <div class="m-notice-box">
+            <p>
+              <strong>Dear Candidates / प्रिय उम्मीदवारों,</strong><br>
+              The MP Police Constable Band Final Merit List portal is temporarily offline. All merit list records and data are safe and secure.
+            </p>
+            <p>
+              मध्य प्रदेश पुलिस आरक्षक (बैंड) भर्ती पोर्टल आज नियमित तकनीकी सुधार एवं सर्वर मेंटेनेंस कार्य हेतु अस्थायी रूप से बंद किया गया है। यह पोर्टल आज जल्द ही पुनः चालू कर दिया जाएगा। असुविधा के लिए हमें खेद है।
+            </p>
+          </div>
+
+          <table class="m-details-table" aria-label="Maintenance Status Details">
+            <tbody>
+              <tr>
+                <td>Recruitment / परीक्षा</td>
+                <td>MP Police Constable Band (Advt. No. 11/2026)</td>
+              </tr>
+              <tr>
+                <td>Portal Status / स्थिति</td>
+                <td><strong style="color: #b02a37;">&#9888; Temporarily Offline / डाउन (आज के लिए)</strong></td>
+              </tr>
+              <tr>
+                <td>Expected Back Online / पुनः चालू</td>
+                <td>Today / आज जल्द ही पुनः उपलब्ध होगा</td>
+              </tr>
+              <tr>
+                <td>Official Board / विभाग</td>
+                <td>Madhya Pradesh Police Recruitment Board (MPPRB), Bhopal</td>
+              </tr>
+              <tr>
+                <td>Official Portals</td>
+                <td>
+                  <a href="https://peb.mp.gov.in" target="_blank" rel="noopener">peb.mp.gov.in</a> &nbsp;|&nbsp; 
+                  <a href="https://police.mp.gov.in" target="_blank" rel="noopener">police.mp.gov.in</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="m-actions">
+            <button onclick="window.location.reload();" class="btn-action-refresh" type="button">
+              &#8635;&nbsp; Check / Refresh Portal
+            </button>
+            <a href="https://peb.mp.gov.in" target="_blank" rel="noopener" class="btn-action-official">
+              &#127963;&nbsp; Visit Official MPPRB Portal
+            </a>
+            <a href="https://police.mp.gov.in" target="_blank" rel="noopener" class="btn-action-official">
+              &#128737;&nbsp; Visit MP Police Portal
+            </a>
+          </div>
+
+          <div style="margin-top: 26px; padding-top: 18px; border-top: 1px dashed #d0c8bc; font-size: 12px; color: var(--muted); line-height: 1.6;">
+            <strong>Helpdesk Notice:</strong> In case of urgent queries, candidates may contact the official helpdesk at <a href="mailto:mpprb@mp.gov.in">mpprb@mp.gov.in</a> or visit official department portals.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /#maintenance-site-content -->
 
   <!-- FOOTER -->
   <footer class="site-footer">
